@@ -11,9 +11,11 @@ class App extends React.Component {
         users: ['Jan Kowalski', 'Michał Nowak'],
     }
 
+
+
     renderUsersList() {
         const {users} = this.state;
-        return users.map(name => {
+        return users.filter(user => user.includes(this.state.searchQuery) ).map(name => {
             return (
                 <li onClick={ this.clickHandler }>
                     { name }
@@ -36,6 +38,7 @@ class App extends React.Component {
 
     render() {
         const { firstName, lastName } = this.state;
+        console.log(this.state.searchQuery)
         return (
             <section onSubmit={ this.submitHandler }>
                 <form>
@@ -49,6 +52,11 @@ class App extends React.Component {
                     />
                     <input type="submit"/>
                 </form>
+                <input name="searchQuery" 
+                value={ this.state.searchQuery } 
+                onChange={ this.inputChange }
+                >
+                </input>
                 <ul>{ this.renderUsersList() }</ul>
             </section>
         );
