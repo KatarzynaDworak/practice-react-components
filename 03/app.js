@@ -10,12 +10,21 @@ class Article extends React.Component {
     
     render() {
         const {title, body} = this.props;
+        console.log(this.state.comments);
         return (
             <article>
                 <h1>{ title }</h1>
                 <p>{ body }</p>
                 <section>
-                    <form>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        const newValue = e.target[0].value;
+                        this.setState({
+                            comments: [...this.state.comments, newValue]
+                            });
+                        e.target[0].value = '';
+                        console.log(newValue);
+                    }}>
                         <div>
                             <label>
                                 <textarea 
@@ -27,7 +36,13 @@ class Article extends React.Component {
                         <div><input type="submit" value="dodaj komentarz" /></div>
                     </form>
                     <ul>
-                        {/* tutaj komentarze jako <li/>, ps. tak wygląda komentarz do kodu w JSX */}
+                        {
+                            this.state.comments.map(newComment => {
+                                return (
+                                    <li key={newComment}>{newComment}</li>
+                                )
+                            })
+                        }
                     </ul>
                 </section>
             </article>
