@@ -33,6 +33,7 @@ class App extends React.Component {
     render() {
         return <h1>{ this.state.counter }</h1>;
     }
+
 }
 
 root.render(<App/>);
